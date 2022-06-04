@@ -11,6 +11,8 @@ public class Session implements estg.ipp.pt.tp02_conferencesystem.interfaces.Ses
     private SessionTheme sessionTheme;
     private Room room;
     private Presentation list_Presentations[];
+    private LocalDateTime StartTime;
+
 
     public Session(int id, SessionTheme sessionTheme, Room room, Presentation list_Presentations[]){
         this.id = id;

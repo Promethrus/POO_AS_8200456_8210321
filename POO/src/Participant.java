@@ -2,6 +2,7 @@ import enums.ParticipateAs;
 
 public abstract class Participant implements estg.ipp.pt.tp02_conferencesystem.interfaces.Participant {
     private int id;
+    private 
     private ParticipateAs participateAs;
     private Presentation list_Presentation[];
 
@@ -17,7 +18,7 @@ public abstract class Participant implements estg.ipp.pt.tp02_conferencesystem.i
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
