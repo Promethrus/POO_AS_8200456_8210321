@@ -4,9 +4,11 @@ import estg.ipp.pt.tp02_conferencesystem.interfaces.Participant;
 
 public class Presentation implements estg.ipp.pt.tp02_conferencesystem.interfaces.Presentation {
     private int id;
+    private String title;
     private Session session;
     private Participant participant;
     private Equipment list_Equipment[];
+    private boolean presenter;
 
     public Presentation(int id, Session session, Participant participant, Equipment list_Equipment[]){
         this.id = id;
@@ -24,12 +26,12 @@ public class Presentation implements estg.ipp.pt.tp02_conferencesystem.interface
 
     @Override
     public int getId() {
-        return 0;
+        return this.id;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return this.title;
     }
 
     @Override
@@ -44,11 +46,11 @@ public class Presentation implements estg.ipp.pt.tp02_conferencesystem.interface
 
     @Override
     public void setPresented() {
-
+        this.presenter = true;
     }
 
     @Override
     public Participant getPresenter() {
-        return null;
+        return participant;
     }
 }

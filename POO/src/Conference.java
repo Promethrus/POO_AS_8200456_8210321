@@ -6,6 +6,7 @@ import estg.ipp.pt.tp02_conferencesystem.interfaces.Room;
 import estg.ipp.pt.tp02_conferencesystem.interfaces.Session;
 import estg.ipp.pt.tp02_conferencesystem.io.interfaces.Statistics;
 
+import java.security.cert.Certificate;
 import java.time.LocalDateTime;
 
 public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.Conference{
@@ -24,7 +25,7 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
         this.id = id;
         this.list_Participant = list_Participant;
         this.list_Session = list_Session;
-        this.room = room;
+        this.list_Room = room;
 
 
 
@@ -54,6 +55,11 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
 
     @Override
     public boolean addSession(Session session) throws ConferenceException {
+        for (int i = 0;this.list_Session.length > i; i++){
+            if (this.list_Session[i] == session){
+                return false;
+            }
+        }
         if (this.conferenceState == ConferenceState.ON_EDITING ){
             int number_Session = 0;
             for (int i = 0; this.list_Session.length > i;i++ ){
@@ -100,7 +106,9 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
 
     @Override
     public void checkIn(Participant participant) throws ConferenceException {
+        if (conferenceState == ConferenceState.IN_PROGRESS){
 
+        }
     }
 
     @Override
@@ -163,12 +171,14 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
 
     @Override
     public Room[] getRooms() {
-        return new Room[0];
+        return this.list_Room;
     }
 
     @Override
-    public void generateSpeakerCertificates(String s) throws ConferenceException {
-
+    public void generateSpeakerCertificates(java.lang.String filepath) throws ConferenceException {
+        if (conferenceState == ConferenceState.FINISHED){
+            Certificate
+        }
     }
 
     @Override

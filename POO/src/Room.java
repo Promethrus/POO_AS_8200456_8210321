@@ -2,6 +2,7 @@ import enums.Equipment;
 
 public class Room implements estg.ipp.pt.tp02_conferencesystem.interfaces.Room {
     private int id;
+    private String name;
     private int number_steats;
     private Equipment list_Equipment[];
 
@@ -16,16 +17,16 @@ public class Room implements estg.ipp.pt.tp02_conferencesystem.interfaces.Room {
 
     @Override
     public int getId() {
-        return 0;
+        return this.id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public int getNumberOfSeats() {
-        return 0;
+        return number_steats;
     }
 }
