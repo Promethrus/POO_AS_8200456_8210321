@@ -117,6 +117,34 @@ public class Session implements estg.ipp.pt.tp02_conferencesystem.interfaces.Ses
 
     @Override
     public Participant[] getAllPresenters() {
+
+        Participant[] temp_presenter_array = this.list_presenters.clone();
+        for (int i = 0;temp_presenter_array.length > i;i++){
+            for (int j = i;temp_presenter_array.length > j;j++){
+                if (temp_presenter_array[i] == temp_presenter_array[j]){
+
+                    int position_participant = 0;
+                    for (int k = 0;temp_presenter_array.length > k;k++){
+                        if(temp_presenter_array[k].getId() == id) {
+                            position_participant = k;
+                        }
+                    }
+                    int number_temp = position_participant;
+                    while(temp_presenter_array.length > number_temp){
+                        temp_presenter_array[number_temp] = temp_presenter_array[number_temp+1];
+                        number_temp++;
+                    }
+                    temp_presenter_array[position_participant] = null;
+                }
+            }
+        }
+        return temp_presenter_array;
+        }
+
+
+
+
+
         return this.list_presenters;
     }
 

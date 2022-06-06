@@ -6,10 +6,12 @@ import estg.ipp.pt.tp02_conferencesystem.interfaces.Room;
 import estg.ipp.pt.tp02_conferencesystem.interfaces.Session;
 import estg.ipp.pt.tp02_conferencesystem.io.interfaces.Statistics;
 
-import java.security.cert.Certificate;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.Conference{
+public abstract class ConferenceImpl implements estg.ipp.pt.tp02_conferencesystem.interfaces.Conference{
 
     private int id;
     private String name;
@@ -19,9 +21,9 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
     private Participant list_Participant[];
     private Room list_Room[];
     private ConferenceState conferenceState;
-    private Participant list_SpeakerParticipants[];
+    private Participant[] list_SpeakerParticipants;
 
-    public Conference(int id,Session list_Session[],Participant list_Participant[],Room room[]){
+    public ConferenceImpl(int id, Session list_Session[], Participant list_Participant[], Room room[]){
         this.id = id;
         this.list_Participant = list_Participant;
         this.list_Session = list_Session;
@@ -31,7 +33,7 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
 
     }
 
-    @Override
+
     public int getid() {return this.id;}
 
     @Override
@@ -41,17 +43,19 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
     public String getField() {return String.valueOf(field);}
 
     @Override
-    public ConferenceState getState() {
-        return conferenceState;
+    public ConferenceState getState() {return conferenceState;}
+
+
+    public void changeState(Field field) {
+        if (this.conferenceState == ConferenceState.ON_EDITING){
+            this.conferenceState = ConferenceState.IN_PROGRESS;
+        } else if (this.conferenceState == ConferenceState.IN_PROGRESS){
+            this.conferenceState = ConferenceState.FINISHED;
+        }
     }
 
     @Override
-    public void changeState(Field field) {this.field = field;}
-
-    @Override
-    public int getYear() {
-        return year;
-    }
+    public int getYear() {return year;}
 
     @Override
     public boolean addSession(Session session) throws ConferenceException {
@@ -126,26 +130,27 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
 
     @Override
     public Participant[] getSpeakerParticipants() {
-        for (int i = 0;this.list_SpeakerParticipants.length > i;i++){
-            for (int j = i;this.list_SpeakerParticipants.length > j;j++){
-                if (this.list_SpeakerParticipants[i] == this.list_SpeakerParticipants[j]){
+        Participant[] list_Spears_temp = this.list_SpeakerParticipants.clone();
+        for (int i = 0;list_Spears_temp.length > i;i++){
+            for (int j = i;list_Spears_temp.length > j;j++){
+                if (list_Spears_temp[i] == list_Spears_temp[j]){
 
                     int position_participant = 0;
-                    for (int k = 0;this.list_SpeakerParticipants.length > k;k++){
-                        if(this.list_SpeakerParticipants[k].getId() == id) {
+                    for (int k = 0;list_Spears_temp.length > k;k++){
+                        if(list_Spears_temp[k].getId() == id) {
                             position_participant = k;
                         }
                     }
                     int number_temp = position_participant;
-                    while(this.list_SpeakerParticipants.length > number_temp){
-                        this.list_SpeakerParticipants[number_temp] = this.list_SpeakerParticipants[number_temp+1];
+                    while(list_Spears_temp.length > number_temp){
+                        list_Spears_temp[number_temp] = list_Spears_temp[number_temp+1];
                         number_temp++;
                     }
-                    this.list_SpeakerParticipants[position_participant] = null;
+                    list_Spears_temp[position_participant] = null;
                 }
             }
         }
-        return this.list_SpeakerParticipants;
+        return list_Spears_temp;
     }
 
     @Override
@@ -175,9 +180,33 @@ public class Conference implements estg.ipp.pt.tp02_conferencesystem.interfaces.
     }
 
     @Override
-    public void generateSpeakerCertificates(java.lang.String filepath) throws ConferenceException {
+    public void generateSpeakerCertificates(String filepath) throws ConferenceException {
         if (conferenceState == ConferenceState.FINISHED){
-            Certificate
+            try {
+                FileWriter file = new FileWriter("temp/gui/participant.json");
+                for (int i = 0;this.list_SpeakerParticipants.length > i;i++){
+                    file.write("-----");
+                    file.write(this.list_SpeakerParticipants[i].getName());
+
+
+
+                }
+
+
+
+
+            }
+             catch (IOException e){
+                throw new ConferenceException();
+             }
+
+
+
+
+
+
+
+
         }
     }
 

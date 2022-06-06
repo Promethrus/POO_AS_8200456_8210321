@@ -2,8 +2,22 @@ import estg.ipp.pt.tp02_conferencesystem.dashboards.Dashboard;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 public class Demo {
     public static void main(String[] args) {
+
+
+
+
+
+
+
+
+
         JSONObject obj = new JSONObject();
         obj.put("name", "mkyong.com");
         obj.put("age", 100);

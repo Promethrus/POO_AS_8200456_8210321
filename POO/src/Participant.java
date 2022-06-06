@@ -6,7 +6,9 @@ public abstract class Participant implements estg.ipp.pt.tp02_conferencesystem.i
     private String bio;
     private boolean checkin;
     private ParticipateAs participateAs;
-    private Presentation list_Presentation[];
+    private Presentation[] list_Presentation;
+    private ConferenceImpl[] list_conference;
+
 
     public Participant(int id,ParticipateAs participateAs,Presentation list_Presentation[]){
         this.id = id;
@@ -14,12 +16,15 @@ public abstract class Participant implements estg.ipp.pt.tp02_conferencesystem.i
         this.list_Presentation = list_Presentation;
     }
 
+    public ConferenceImpl[] getList_conference() {return list_conference;}
 
 
 
 
     @Override
     public int getId() {return id;}
+
+
 
 
     public boolean getCheckin(){return this.checkin;}
